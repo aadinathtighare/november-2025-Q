@@ -3,7 +3,13 @@ Q. 3 tier architecture we used  in real time prod env for k8s micro-services dep
 even for Kubernetes-based microservices deployments, though the implementation looks a bit different from traditional VMs.
 ---------------------------------
 Q. for front end I hv app that is service type is load balancer so top of that I hv ingress load balancer ? it is right set up  in real time prod env ?
--->
+--> 👉 Short answer:
+❌ No, that’s not the ideal or real-time setup.
+You normally don’t need both a Service of type LoadBalancer and an Ingress Load Balancer for the same frontend app.
+User → Internet → Ingress Load Balancer (ALB / NGINX) → ClusterIP Service → Frontend Pod
+
+Service type = ClusterIP + Ingress
+✅ For multi-service setup (real-time)
 ----------------------------------------
 Q. In deployment.yaml file we need to change the image tag after every build.
 
