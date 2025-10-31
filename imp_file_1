@@ -1,0 +1,7 @@
+Q. 3 tier architecture we used  in real time prod env for k8s micro-services deployment ?
+--> yes, 3-tier architecture is absolutely used in real-time production environments, 
+even for Kubernetes-based microservices deployments, though the implementation looks a bit different from traditional VMs.
+---------------------------------
+Q. for front end I hv app that is service type is load balancer so top of that I hv ingress load balancer ? it is right set up  in real time prod env ?
+-->
+-----------
