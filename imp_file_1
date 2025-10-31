@@ -4,4 +4,16 @@ even for Kubernetes-based microservices deployments, though the implementation l
 ---------------------------------
 Q. for front end I hv app that is service type is load balancer so top of that I hv ingress load balancer ? it is right set up  in real time prod env ?
 -->
------------
+----------------------------------------
+Q. In deployment.yaml file we need to change the image tag after every build.
+
+Not in service.yaml file ?
+-->
+
+-----------------------------------
+When ever I want to do deployment I need to change the build number .
+Build number is nothing but docker image tag
+For every micro  service we hv different docker file
+--------------------------------
+
+
