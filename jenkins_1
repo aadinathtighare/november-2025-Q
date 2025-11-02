@@ -1,0 +1,71 @@
+🔁 1️⃣ min_healthy_percentage
+Context: हे Terraform (किंवा AWS ASG) update policy मध्ये वापरले जाते.
+👉 Meaning:
+Rolling update दरम्यान — ASG मधील किमान किती टक्के instances healthy (in service) राहायला हवेत, ते सांगते.
+💡 Example:
+update_policy {
+  min_healthy_percentage = 70
+}
+
+Meaning:
+जर तुझ्याकडे 10 instances आहेत, आणि तू min_healthy_percentage = 70 दिलं,
+तर Terraform किंवा ASG ने एकावेळी जास्तीत जास्त 3 instances terminate करून replace करणार (कारण 70% म्हणजे 7 instances नेहमी healthy राहतील).
+Real-time usage:
+Production environment साठी 70–80% safe value असते (कधी 100% पण ठेवतात zero downtime साठी).
+Development साठी 50% चालते कारण downtime थोडं चालतं.
+
+⚙️ 2️⃣ upper_threshold
+Context: हे CloudWatch Alarm मध्ये वापरतात — Auto Scaling Group ला scale out कधी करायचं हे सांगण्यासाठी.
+👉 Meaning:
+जेव्हा CPU utilization या टक्क्यांपेक्षा जास्त जाते, तेव्हा ASG नवीन EC2 instances वाढवते.
+💡 Example:
+upper_threshold = 70
+
+Meaning:
+जर average CPU usage > 70% झाला, तर CloudWatch alarm trigger होईल
+→ Auto Scaling Policy “scale out” चालवेल
+→ नवीन instances add होतील.
+Real-time usage:
+Typical values:
+
+
+upper_threshold = 70 (for production)
+
+
+upper_threshold = 80 (for dev/test)
+
+
+
+⚙️ 3️⃣ lower_threshold
+Context: हे सुद्धा CloudWatch Alarm साठी आहे — Auto Scaling Group ला scale in कधी करायचं हे सांगण्यासाठी.
+👉 Meaning:
+जेव्हा CPU utilization या टक्क्यांपेक्षा कमी जाते, तेव्हा ASG instances कमी करते (terminate करते).
+💡 Example:
+lower_threshold = 20
+
+Meaning:
+जर CPU usage < 20% झाला काही वेळेसाठी (उदा. 5 mins), तर CloudWatch alarm trigger होईल
+→ Auto Scaling Policy “scale in” चालवेल
+→ काही instances terminate होतील (ज्याने खर्च कमी होईल).
+Real-time usage:
+Typical values:
+
+
+lower_threshold = 20 (for prod)
+
+
+lower_threshold = 30 (for dev/test)
+
+
+
+🧠 Final Summary Table
+ParameterPurposeReal-time Example (Prod)min_healthy_percentageRolling update दरम्यान minimum healthy EC2 instances80upper_thresholdCPU usage ↑ झाल्यावर scale-out trigger70lower_thresholdCPU usage ↓ झाल्यावर scale-in trigger20
+
+✅ Typical Real-time Values (Gradual Rolling Update Strategy):
+-var 'min_healthy_percentage=80' \
+-var 'upper_threshold=70' \
+-var 'lower_threshold=20'
+
+
+हवं का मी तुला दाखवू कसा हा auto scaling + CloudWatch alarm Terraform कोडमध्ये दिसतो (with these variables)?
+ते केल्यास तुला visualize होईल की हे thresholds आणि percentage कसे लागू होतात.
