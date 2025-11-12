@@ -1,2 +1,22 @@
 Q. i hv vpc module so that module I can use in different workspaces like dev and prod?
 --> yes, you can use the same VPC module in different Terraform workspaces like dev, staging, or prod.
+
+A module is a collection of Terraform configurations (.tf files) that define one or more resources together.
+It’s like a function in programming — you define once, use many times.
+You can reuse the same module multiple times with different inputs (variables).
+------------
+Workspaces are used for environment isolation using the same code.
+--------
+In many large enterprises, teams avoid workspaces and instead:
+
+Use separate backend configurations or separate state files manually
+
+Or even separate Git repositories per environment (e.g. infra-dev, infra-prod)
+
+✅ Why?
+Because:
+
+They want strong isolation (no accidental prod changes)
+
+Workspaces still share the same code and backend bucket — so a small mistake (wrong workspace apply) can impact prod.
+-----------------------
