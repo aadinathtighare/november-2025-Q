@@ -1,0 +1,2 @@
+Q. i hv vpc module so that module I can use in different workspaces like dev and prod?
+--> yes, you can use the same VPC module in different Terraform workspaces like dev, staging, or prod.
