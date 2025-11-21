@@ -1,0 +1,91 @@
+Q.in single values.yaml file we keep all the values like replicas, image , hpa related values as well as service relates and secret related ?
+yes
+--------------------------------------------------------------------------------------------
+Q. What happens if you do helm rollback while using ArgoCD GitOps ?
+--> 👉 ArgoCD will detect that cluster state ≠ Git state (because Git still has old values)
+👉 ArgoCD will sync the application back to the Git version
+
+🧠 How to Detect Drift in ArgoCD GUI
+
+Go to ArgoCD UI → Application → Status: OutOfSync
+---------------------------------------------------------------------------------------
+if I have argocd then kubectl commands what is the use ?
+--> "With ArgoCD, we avoid using kubectl for deployments.
+We use kubectl only for observability and debugging — not for making permanent changes.
+Git remains the single source of truth, and ArgoCD keeps the cluster in sync."
+----------------------------------------------------------------------------------------
+"In a GitOps setup with ArgoCD, we should never use helm rollback.
+Rollback must be done via Git revert or ArgoCD rollback based on Git revision.
+ArgoCD ensures Git is always single source of truth."
+----------------------------------------------------------------------------------------
+# helm  version
+The latest stable version of Helm is v3.19.2.
+------------------------------------------
+ECS --> fargate
+---------------------
+Attach this ServiceAccount.yaml
+ to a Pod.
+
+If you want to create Role & RoleBinding also.
+ServiceAccount is part of the          ---->              RBAC (Role-Based Access Control) concept in Kubernetes.
+--------------------------------------------------------------------------------------
+Q. which type of cache u store in redis ?
+--> Session cache
+--------------------
+Q. ArgoCD is used ehich database ?
+--> argocd-redis
+--------------------------------
+Q. in argo cd which service communicate with github ?
+--> argocd-repo-server
+-->  argocd-application-controller
+---------------------------------------------------
+jenkins vs argocd
+----------------------
+I hv namespace 1 & namespace 2 , Then microservice 1 & 2 how to communicate with each other and vice versa ?
+--> Yes, communication across namespaces is possible in both directions (vice versa), as long as network policies or firewalls are not blocking it.
+----------------------------------------------
+Q. How Pod Sends Traffic Outside the Cluster?
+--> NAT gateway
+---------------------------------------------
+🧠 Why QA Sign-Off is Needed
+----------------------------------
+❓ How do you run parallel builds in Jenkins ?
+---------------------------------------------
+how u know the my cpu is 70 % limit is reached ?
+-->  alert manager in prometheus-->  CPU > 70% for 5 minutes--> rule --> critical alert fire --> send email to ops team.
+-----------------------------------------------------------------
+how u deploy the code to different env like dev prod ?
+--> jenkins multi stage pipeline
+-----------------------------------------------
+how u integrate argocd with jenkins?
+or how u integrate argocd with guthub ?
+---------------------------------------------
+hpa --> some pods is cpu  extensive
+some pods is memory so how u configure that
+------------------------------------------
+can we configure both cpu & memory  HPA in single pod ?
+-----------------------------------------
+if dev team write code & push to github then what thing u ask to dev team and deploy code in eks as a devops engineer
+--> dockerfile & k8s manifest files we required
+----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
