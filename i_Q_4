@@ -1,0 +1,178 @@
+Kyverno = Governance & Policy-as-Code
+NetworkPolicy = Traffic control-->  Calico
+CSI full form → Container Storage Interface
+Secrets Store CSI Driver → mount secrets from AWS Secret Manager
+Q. if I m using aws secret manager then yaml file give me.
+Q. Using Vault to Inject Secrets into Pods (Most Common) give me .yaml file
+Q. if i m using hashicorp vault so that time also my secrets are stored in etcd ?
+Q. AWS Secrets Manager uses AWS KMS for encryption ?
+--> yes.
+KMS is a valid encryption provider for encrypting Kubernetes Secrets at rest.
+for containerd we are using crictl command.
+-------------------------------------------------------------------
+what is RWO RWX RWOP ?
+encrypt Secrets at rest . encryption algorithms
+-------------------------------------------------------------
+for 1 application like paytm why we use 4 eks clusters like 1 for mandate transactions and other for upi peer to peer txn
+1️⃣ Isolation by Functional Domain
+in paytm :Refund, Onboarding, Mandate, and P2P transactions services
+Each cluster handles a different type of transaction/service.
+Example:
+Cluster 1 → Mandate transactions (recurring payments)
+Cluster 2 → UPI Peer-to-Peer payments
+Cluster 3 → Wallet / Bank transfers
+Cluster 4 → Merchant onboarding / KYC
+This ensures issues in one service don’t affect others.
+------------------------------------------------------------------
+so we have refund service onboarding transaction and other is mandate so these 4 services have different 4 cluster ?
+so that 4 clusters are in same vpc or different ? like Paytm, the 4 EKS clusters are usually in separate VPCs.
+-------------------------------------------------------------
+so how the that 4 clusters are talk each other ?
+VPC Peering, Transit Gateway
+--------------------------------------------------------------------
+we have ec2 instance with autoscaling but ec2 is still showing high cpu usage what may be the reason?
+terraform console: opens an interactive shell to evaluate Terraform expressions, variables, outputs
+how to pass value from 1 module to other in terrafrom? output block
+-----------------------------------------------
+I have app logs now I want to do some business analytics how ? which tools u will use or aws services ?
+CloudWatch Logs → S3 → Glue → Athena → QuickSight
+--------------------------------------------------
+I Have ec2 instance & cloudwatch so where the log files in ec2 instance stored how cloudwatch know that  how to configure ? CloudWatch Agent
+------------------------------
+a Load Balancer can do TLS termination?
+--> yes
+--------------------
+I have 30 aws accounts then as a admin I want in 1 account particular , iam user's don't create the ec2 instances in that account ?
+--> AWS Organizations : SCP (Service Control Policies)
+----------------------
+if cpu throttle is there so how to solve this issue like can I kill the process ? Remove CPU Limit
+CPU Throttling in Kubernetes:  your app becomes slow.
+--------------------------------------------------
+in terraform resource is created after every apply ? so what is the issue ?
+------------------------------------------
+if i tainted 1 ec2 instance then ?
+.tfstate vs terraform.lock.hcl
+Istio : service to service encryption
+in Transit encryption--> Data is moving over the network.
+For tls certificate we used in ingress we use in Transit encryption.
+--> Https protocol
+--------------------------------------
+For RDS , ebs volume and secret at etcd database we use encryption at rest.
+----------
+Q. How to switch from 1 cluster to other ?
+Kubectl config use-context (context-name)
+----------------------------------------------------------------------------------------
+if I have a java application then how to scrape metrics ? for observibility ?
+--> Micrometer, cAdvisor metrics.
+Actuator
+/metrics
+kube-state-metrics
+Prometheus pulls metrics using:
+ServiceMonitor, PodMonitor, annotations
+--------------------------------------------------------------------------------------------
+netstat -tlupn is a Linux command used to check which ports are listening
+--------------
+kube-state-metrics:--> it only exposes the state of Kubernetes objects.
+------------------------------------------------------------------------
+system metrics (CPU, memory) — those come from node-exporter or cAdvisor.
+---------------------------------------------------------------------
+Cluster health who monitor? --> Kube state metrics
+-----------------------------------------------------------------------
+DaemonSet = Node-level pods: run in each node: 
+Logging agents (Fluentd, FluentBit)
+
+Monitoring agents (Node Exporter, Prometheus agent)
+
+CNI plugins (Calico, Weave)
+----------------------------------------------------------------------------
+kubectl logs <pod-name> -c <container-name> --previous
+------------------------------------------------------------------
+ReplicaSet vs Revision (Rollback)
+Out of Memory (OOMKilled)
+Init containers failing
+k rollout undo deployment nginx --to-revision=2
+-----------------------------------------------------------------------------------------------------
+i hv deployment.yaml in that replicas : 3 only then I hv hpa.yaml here min replicas : 3 and max replicas : 10 so when cpu is breached threshold value then in deployment.yaml relicas value is changed ?
+-----------------------------------------------------------------------------------------------------------------------------------------------
+503 – Service Unavailable
+504 – Gateway Timeout
+--------------------------------
+403 – Forbidden (not allow)
+401 – Unauthorized
+----------------------------------
+5xx --> server side err
+4xx --> client side err
+-------------------------------------
+Why BusyBox image is used in Kubernetes?
+--> for Init containers, side car containers
+------------------------------------------
+in 1 pod can we hv 2 init containers and 1 app container , 1 side car container ?
+--> yes
+--------------------------------
+kubectl logs <pod-name> -c <container-name>
+Reading logs from a shared volume.
+Using an agent (FluentBit / Filebeat / Fluentd) to ship logs.
+Sending logs to Logstash or Elasticsearch
+----------------------------------------------
+[Init Container] → fetch secrets from hashicorp Vault → write to /secrets → Main app reads.
+using init containers to download secrets and TLS certificates for the main application container.
+--------------------------------------------
+How to integrate trivy with jenkins?
+--> Install Trivy on Jenkins agent.
+you can install Trivy Plugin in Jenkins
+-----------------------------------------
+we hv 4 micro - services so ingress.yaml 
+port, path ,service
+----------------------------------------------
+Application set in argocd
+When to use ServiceMonitor vs PodMonitor
+cluster autoscaler is depends on autoscaling group in aws for node groups ?
+--> yes
+----------------------------------------------------
+So argocd deploy new image and create new pods , so it will use rolling update strategy by default
+Argo cd every 3 minutes check the image in GitHub
+-------------------
+Yes, Promtail + Loki + Grafana is similar to the ELK stack.
+Promtail works like Filebeat/Logstash, Loki works like Elasticsearch, and Grafana works like Kibana.
+But Loki is more lightweight and mainly designed for Kubernetes & microservices.
+--------------------
+Yes! OpenTelemetry Collector can be installed using Helm chart.
+--------------
+OpenTelemetry Protocol (OTLP) 
+OpenTelemetry : open-source observability framework --> logs, metrics, tracing collect
+------------------------
+Wiz is a cloud security tool.
+Run the playbook--> 
+ansible-playbook playb-1.yaml
+-----------------------------------
+state=present
+install git httpd nginx
+---------------------------
+In Ansible, the default inventory file name ?
+/etc/ansible/hosts
+----------------------------
+lifecycle {
+  ignore_changes = [ tags ]
+}
+Manually added tags will not delete
+----------------------------
+What happens if you do helm rollback while using ArgoCD GitOps ?
+--> 👉 ArgoCD will detect that cluster state ≠ Git state (because Git still has old values)
+👉 ArgoCD will sync the application back to the Git version
+
+🧠 How to Detect Drift in ArgoCD GUI
+
+Go to ArgoCD UI → Application → Status: OutOfSync
+
+
+
+
+
+
+
+
+
+
+
+
+
