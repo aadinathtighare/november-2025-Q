@@ -1,0 +1,13 @@
+in prometheus what we are use for pull metrics from target server  ?
+1) Node Exporter (MOST COMMON) --> Used to pull OS/server metrics:
+-------------
+2. Application-Specific Exporters-->
+Based on what service you want to monitor:
+Blackbox Exporter → Ping, HTTP, TCP checks
+MySQL Exporter → DB metrics
+MongoDB Exporter
+Nginx Exporter
+Redis Exporter
+Kafka Exporter
+JMX Exporter → Java apps
+-------------------
