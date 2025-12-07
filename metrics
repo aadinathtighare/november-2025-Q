@@ -128,5 +128,27 @@ in production, the routing rules for front-end and backend microservices are typ
 -------------------------------------------------------
 if our app in not containerised then front end is talked to backend that we configured via ? I think front end is separate and backend is separate ?
 ------------------------------------------------------
-
+i hv backend pod that will communicate with db so I hv aws RDS DB so in config map db related things are same for each backend services ?
+--> Yes — in Kubernetes, if you have multiple backend pods (or services) that all need to connect to the same AWS RDS database, 
+the DB-related configuration is typically the same for each backend service, but it depends on how you manage secrets and config. 
+------------------------------------------------------------------------------------------------------------
+Use environment variables or volume mounts to inject the values into pods.
+----------------------------------
+env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: DB_HOST
+----------------------------------------
+valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_USER
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_PASS
+------------------------------------------------------
 
