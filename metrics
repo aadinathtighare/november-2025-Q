@@ -215,4 +215,7 @@ RDS  username/password
 ExternalName is service type
 if I m using eks then RDS as a database then backend is talk with Database so in backend service.yaml I need to use service type is cluster IP or headless service ?
 ----------------------------
+if I m using ingress ALB ok then I have domain name like red.com then in route53 I need to create A record with red.com domain so I need to map this domain with 
+ingress alb dns or I need to create separate load balancer via service.yaml ? No
+--------------------------------------
 
