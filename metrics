@@ -57,9 +57,38 @@ Q. if i m using service type is cluster ip then who give dns name to my service 
 ✅ Who gives DNS to your ClusterIP service?
 👉 CoreDNS (Kubernetes DNS server)
 ------------------------------------------
+Q. if i m using service type is cluster ip then that service have port number ?
+--> ✅ ClusterIP has:
+An IP address (internal VIP)
+A Port (Service Port)
+A TargetPort (Pod port)
+-----------------------------------------------------
+NAME         TYPE        CLUSTER-IP     PORT(S)
+my-service   ClusterIP   10.0.12.5      80/TCP
+----------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: ClusterIP
+  selector:
+    app: my-app
+  ports:
+  - port: 80        # Service Port
+    targetPort: 8080 # Pod Port
+--------------------------------------------
+✔ Pod runs app on 8080
+✔ Service listens on 80
+✔ Service forwards 80 → 8080
+-----------------------------
+🔹 What if you don't specify port?
 
-
-
+❌ Service will NOT work.
+A Service must define at least one port.
+-------------------------------------
+Q. How Ingress maps HTTP to service ports ?
+------------------------------
 
 
 
