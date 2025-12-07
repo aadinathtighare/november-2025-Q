@@ -95,11 +95,34 @@ curl http://my-service.default
 curl http://my-service.default.svc
 curl http://my-service.default.svc.cluster.local
 -----------------------------------------------
+🔹 DNS structure created by CoreDNS:-->
+<service-name>.<namespace>.svc.cluster.local
+Examples:
+api.default.svc.cluster.local
+db.prod.svc.cluster.local
+backend.dev.svc.cluster.local
+-----------------------------------------------
+ALB Ingress with sticky sessions
+---------------------------
+Q.if i hv front end pods then i need to use which service type for my nginx ?
+-------------
+If you have front-end pods (React/Angular/Vue/HTML) served by NGINX, the correct service type depends on how you want to expose it.
+----------------------------------
+AWS ALB Ingress example for a front-end (NGINX) service running in EKS. (AWS Load Balancer Controller)
+---------------------
+ALB Ingress with multiple microservices
+-----------------------------
+Here’s a production-ready example of AWS ALB Ingress with multiple microservices in an EKS cluster. This setup is used in real-world scenarios 
+where different services (frontend, backend, auth) are exposed via one ALB using host- or path-based routing.
+-----------------------
+✅ 3. Important Notes for Prod
 
-
-
-
-
+Services must be ClusterIP — Ingress handles public exposure.
+TLS (HTTPS) must be configured in annotations (certificate-arn).
+Health checks should be configured (/health endpoint for backend).
+Path and host rules determine which service receives traffic.
+Works with ALB Ingress Controller in AWS EKS.
+----------------------------------------
 
 
 
