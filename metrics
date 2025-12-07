@@ -19,8 +19,54 @@ Works at individual EC2 instance level (not ASG).
 Launches nodes directly using EC2 Fleet
 Very fast (10–30 seconds)
 -----------------------------------------------------------
-Cluster Autoscaler (CA): -->
+Cluster Autoscaler (CA): --> 👉 Use either Karpenter OR Cluster Autoscaler — not both.
 Works at Auto Scaling Group / Node Group level
 Adds/removes nodes inside ASG
 Slow scaling (3–5 minutes)
 ==========================================
+Q. for cluster auto scaler we have .yaml file helm provide .yaml file ?
+--> Yes — Cluster Autoscaler is installed using Helm, and Helm will provide the YAML manifests for you.
+===================
+In AWS → ALB Ingress can handle many micro-services
+--> Because each service gets its own target group.
+--------------------------------
+Yes — ClusterIP services in Kubernetes DO get an virtual IP address.
+Host-based routing:
+api.myapp.com  -> service: api-service
+auth.myapp.com -> service: auth-service
+------------------------
+Path-based routing:
+/api   -> api-service
+/auth  -> auth-service
+/cart  -> cart-service
+------------------------------
+Yes, ClusterIP acts like an internal proxy/load balancer for backend pods.
+------------------
+When you create a Service with type: ClusterIP, Kubernetes assigns it a virtual IP address (VIP) inside the cluster only.
+-----------------------------------------
+# kubectl get svc
+my-service   ClusterIP   10.0.123.45   <none>   80/TCP   10m
+--> Here, 10.0.123.45 is the ClusterIP.        Used by pods to talk to other services
+--------------------------------------------------------------------------
+✔ How to test the ClusterIP? From a pod:
+--> curl http://my-service:80
+or using the IP: curl http://10.xx.xx.xx:80
+It is internal only → accessible inside the cluster
+-----------------------------
+Q. if i m using service type is cluster ip then who give dns name to my service ?
+✅ Who gives DNS to your ClusterIP service?
+👉 CoreDNS (Kubernetes DNS server)
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
