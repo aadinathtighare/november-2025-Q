@@ -126,6 +126,7 @@ Works with ALB Ingress Controller in AWS EKS.
 in k8s :
 in production, the routing rules for front-end and backend microservices are typically configured in the Ingress resource YAML (ingress.yaml) ? Yes
 -------------------------------------------------------
-
+if our app in not containerised then front end is talked to backend that we configured via ? I think front end is separate and backend is separate ?
+------------------------------------------------------
 
 
