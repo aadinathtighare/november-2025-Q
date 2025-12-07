@@ -151,4 +151,22 @@ valueFrom:
               name: db-secret
               key: DB_PASS
 ------------------------------------------------------
+so headless service is provide dns name to each pod in statefulset app like mysql use case ?
 
+For a StatefulSet named mysql with a Headless Service named mysql-headless and 3 replicas, the DNS entries would be:
+mysql-0.mysql-headless.default.svc.cluster.local (resolves to Pod mysql-0's IP)
+
+mysql-1.mysql-headless.default.svc.cluster.local (resolves to Pod mysql-1's IP)
+
+mysql-2.mysql-headless.default.svc.cluster.local (resolves to Pod mysql-2's IP)
+
+The pod name (and thus the DNS entry) remains the same even if the pod dies and is rescheduled to a new node with a different IP address.
+This is the stable network identity required by the StatefulSet.
+------------------------------------------------------
+Q. how your backend pods authenticates to RDS ?
+RDS read replica & RDS *endpoint* we keep in config map & secret 
+RDS  username/password
+----------------------------------------------
+ExternalName is service type
+if I m using eks then RDS as a database then backend is talk with Database so in backend service.yaml I need to use service type is cluster IP or headless service ?
+----------------------------
