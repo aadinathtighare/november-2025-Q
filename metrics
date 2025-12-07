@@ -123,7 +123,9 @@ Health checks should be configured (/health endpoint for backend).
 Path and host rules determine which service receives traffic.
 Works with ALB Ingress Controller in AWS EKS.
 ----------------------------------------
-
+in k8s :
+in production, the routing rules for front-end and backend microservices are typically configured in the Ingress resource YAML (ingress.yaml) ? Yes
+-------------------------------------------------------
 
 
 
