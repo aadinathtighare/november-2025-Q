@@ -89,7 +89,12 @@ A Service must define at least one port.
 -------------------------------------
 Q. How Ingress maps HTTP to service ports ?
 ------------------------------
-
+You can access it inside the cluster: -->
+curl http://my-service
+curl http://my-service.default
+curl http://my-service.default.svc
+curl http://my-service.default.svc.cluster.local
+-----------------------------------------------
 
 
 
