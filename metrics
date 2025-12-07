@@ -11,3 +11,16 @@ Redis Exporter
 Kafka Exporter
 JMX Exporter → Java apps
 -------------------
+Q. how to install AWS Karpenter in an EKS cluster ? via helm chart
+Q. Cluster auto scaler is working together with karpenter ?
+No — Cluster Autoscaler (CA) and Karpenter should NOT run together.
+Karpenter:-->
+Works at individual EC2 instance level (not ASG).
+Launches nodes directly using EC2 Fleet
+Very fast (10–30 seconds)
+-----------------------------------------------------------
+Cluster Autoscaler (CA): -->
+Works at Auto Scaling Group / Node Group level
+Adds/removes nodes inside ASG
+Slow scaling (3–5 minutes)
+==========================================
